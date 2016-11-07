@@ -1,17 +1,22 @@
 package id.sch.smktelkom_mlg.learn.activitylivecycle;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private static final String TAG = "LivecyleTag" ;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
         Log.d(TAG, "onCreate: ");
     }
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        mediaPlayer.start();
         super.onResume();
         Log.d(TAG, "onResume");
     }
@@ -42,13 +48,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart()
     {
+        mediaPlayer.pause();
         super.onRestart();
         Log.d(TAG, "onRestart");
     }
     @Override
     protected void onDestroy()
     {
+        if (mediaPlayer != null)
+            mediaPlayer.release();
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
+
 }
